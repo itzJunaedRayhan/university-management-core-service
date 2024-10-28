@@ -7,6 +7,7 @@ A Backend Boilerplate using Node.js, PostgreSQL, Prisma, Express, and TypeScript
 ## Features
 
 ### Core Dependencies:
+
 - **@prisma/client (v5.21.1)**: The Prisma Client for TypeScript/JavaScript, which is used to interact with your PostgreSQL database.
 - **cookie-parser (v1.4.7)**: Middleware for parsing Cookie headers.
 - **cors (v2.8.5)**: Middleware for enabling Cross-Origin Resource Sharing.
@@ -16,6 +17,7 @@ A Backend Boilerplate using Node.js, PostgreSQL, Prisma, Express, and TypeScript
 - **zod (v3.23.8)**: A TypeScript-first schema declaration and validation library.
 
 ### Development Dependencies:
+
 - **@eslint/js (v9.13.0)**: ESLint rules for modern JavaScript.
 - **eslint (v9.13.0)**: A tool for identifying and reporting on patterns in JavaScript.
 - **globals (v15.11.0)**: Provides common global variables for Node.js and browser environments.
@@ -29,12 +31,14 @@ A Backend Boilerplate using Node.js, PostgreSQL, Prisma, Express, and TypeScript
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/itzJunaedRayhan/backend-node-express-prisma-postgresql-typescript-boilerplate.git
    cd backend-node-express-prisma-postgresql-typescript-boilerplate
    ```
 
 2. Install dependencies using Yarn:
+
    ```bash
    yarn install
    ```
@@ -48,58 +52,69 @@ A Backend Boilerplate using Node.js, PostgreSQL, Prisma, Express, and TypeScript
 ## Usage
 
 To start the application, use the following command:
+
 ```bash
 yarn start
 ```
+
 This command will run the server using `ts-node-dev`, which watches for file changes and automatically restarts the server.
 
 ## Scripts
 
 Here are some helpful scripts you can run:
 
-- **Start the server**:  
+- **Start the server**:
+
   ```bash
   yarn start
   ```
 
-- **Check for linting errors**:  
+- **Check for linting errors**:
+
   ```bash
   yarn lint:check
   ```
 
-- **Fix linting errors**:  
+- **Fix linting errors**:
+
   ```bash
   yarn lint:fix
   ```
 
-- **Check formatting with Prettier**:  
+- **Check formatting with Prettier**:
+
   ```bash
   yarn prettier:check
   ```
 
-- **Fix formatting issues**:  
+- **Fix formatting issues**:
+
   ```bash
   yarn prettier:fix
   ```
 
 - **Run lint and prettier checks on staged files**:  
-  This is automatically triggered on pre-commit using Husky:  
+  This is automatically triggered on pre-commit using Husky:
+
   ```bash
   yarn lint-prettier
   ```
 
-- **Prepare Husky for Git hooks**:  
+- **Prepare Husky for Git hooks**:
   ```bash
   yarn prepare
   ```
 
 ## Linting and Formatting
+
 To ensure your code is well-structured, you can use `lint-staged` in combination with `husky`. This will run your linting and formatting checks on staged files before committing.
 
 ## Author
+
 **itzJunaedRayhan**
 
 ## License
 
 This project is licensed under the MIT License.
+
 # university-management-core-service
