@@ -48,7 +48,7 @@ model AcademicDepartment {
   faculties Faculty[]
  
   academicFacultyId String
-  academicFaculty AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
+  academicFaculty AcademicFaculty @relation(fields: [academicFacultyId], references: [id], onDelete: Cascade)
 
   @@map("academic_departments")
 }
@@ -70,9 +70,9 @@ model Student {
   academicDepartmentId String
   academicFacultyId String
   academicSemesterId String
-  academicDepartment AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
-  academicFaculty AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
-  academicSemester AcademicSemester @relation(fields: [academicSemesterId], references: [id])
+  academicDepartment AcademicDepartment @relation(fields: [academicDepartmentId], references: [id], onDelete: Cascade)
+  academicFaculty AcademicFaculty @relation(fields: [academicFacultyId], references: [id], onDelete: Cascade)
+  academicSemester AcademicSemester @relation(fields: [academicSemesterId], references: [id], onDelete: Cascade)
 
   @@map("students")
 }
@@ -94,8 +94,8 @@ model Faculty {
 
   academicDepartmentId String
   academicFacultyId String
-  academicDepartment AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
-  academicFaculty AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
+  academicDepartment AcademicDepartment @relation(fields: [academicDepartmentId], references: [id], onDelete: Cascade)
+  academicFaculty AcademicFaculty @relation(fields: [academicFacultyId], references: [id], onDelete: Cascade)
   
 
   @@map("faculties")
