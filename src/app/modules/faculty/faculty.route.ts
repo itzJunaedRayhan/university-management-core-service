@@ -1,9 +1,9 @@
 import express from 'express';
-import { FacultyController } from './faculty.controller';
-import validateRequest from '../../middleware/validateRequest';
-import { FacultyValidation } from './faculty.validation';
-import auth from '../../middleware/auth';
 import { ENUM_USER_ROLE } from '../../../enums/user';
+import auth from '../../middleware/auth';
+import validateRequest from '../../middleware/validateRequest';
+import { FacultyController } from './faculty.controller';
+import { FacultyValidation } from './faculty.validation';
 
 const router = express.Router();
 
@@ -29,6 +29,20 @@ router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   FacultyController.deleteByIdFromDB
+);
+
+router.post(
+  '/:id/assign-courses',
+  validateRequest(FacultyValidation.assignOrRemoveCourses),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  FacultyController.assignCourses
+);
+
+router.delete(
+  '/:id/remove-courses',
+  validateRequest(FacultyValidation.assignOrRemoveCourses),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  FacultyController.removeCourses
 );
 
 export const FacultyRoutes = router;
