@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
@@ -64,10 +65,24 @@ const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await SemesterRegistrationServices.startMyRegistration(
+    user.userId
+  );
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Student SemesterRegistration started successfully',
+    data: result,
+  });
+});
+
 export const SemesterRegistrationController = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
   updateOneInDB,
   deleteByIdFromDB,
+  startMyRegistration,
 };

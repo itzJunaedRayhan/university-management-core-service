@@ -3,6 +3,7 @@ import {
   Prisma,
   SemesterRegistration,
   SemesterRegistrationStatus,
+  StudentSemesterRegistration,
 } from '@prisma/client';
 import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
@@ -190,10 +191,77 @@ const deleteByIdFromDB = async (id: string): Promise<SemesterRegistration> => {
   return result;
 };
 
+const startMyRegistration = async (
+  authUserId: string
+): Promise<{
+  semesterRegistration: SemesterRegistration | null;
+  studentSemesterRegistration: StudentSemesterRegistration | null;
+}> => {
+  const studentInfo = await prisma.student.findFirst({
+    where: {
+      studentId: authUserId,
+    },
+  });
+  if (!studentInfo) {
+    throw new ApiError(400, 'Student Info not found!');
+  }
+
+  const semesterRegistrationInfo = await prisma.semesterRegistration.findFirst({
+    where: {
+      status: {
+        in: [
+          SemesterRegistrationStatus.ONGOING,
+          SemesterRegistrationStatus.UPCOMING,
+        ],
+      },
+    },
+  });
+
+  if (
+    semesterRegistrationInfo?.status === SemesterRegistrationStatus.UPCOMING
+  ) {
+    throw new ApiError(400, 'Registration is not started yet');
+  }
+
+  let studentRegistration = await prisma.studentSemesterRegistration.findFirst({
+    where: {
+      student: {
+        id: studentInfo?.id,
+      },
+      semesterRegistration: {
+        id: semesterRegistrationInfo?.id,
+      },
+    },
+  });
+
+  if (!studentRegistration) {
+    studentRegistration = await prisma.studentSemesterRegistration.create({
+      data: {
+        student: {
+          connect: {
+            id: studentInfo?.id,
+          },
+        },
+        semesterRegistration: {
+          connect: {
+            id: semesterRegistrationInfo?.id,
+          },
+        },
+      },
+    });
+  }
+
+  return {
+    semesterRegistration: semesterRegistrationInfo,
+    studentSemesterRegistration: studentRegistration,
+  };
+};
+
 export const SemesterRegistrationServices = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
   updateOneInDB,
   deleteByIdFromDB,
+  startMyRegistration,
 };
